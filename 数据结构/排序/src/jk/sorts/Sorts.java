@@ -193,4 +193,44 @@ public class Sorts {
             }
         }
     }
+
+
+    /**
+     * 快速排序
+     * <p/>
+     * 采用分而治之的思想，首先从要排序的数据中选取一个数据作为基准，
+     * 所有比基准小的数据放在左侧，比基准大的数据放在右侧，从而将数据分为了3段
+     * 左段left，中段middle和右段right，中段只包含一个数字，即刚才所选取的基准
+     * 然后对左端和右段的数据分别进行快速排序，递归的进行直到排序完成
+     * <p/>
+     * 不稳定的排序
+     *
+     * @param array
+     * @param left
+     * @param right
+     */
+    public static void quickSort(int[] array, int left, int right) {
+
+        if (left >= right)
+            return;
+        int i = left;
+        int j = right;
+        int middle = array[left];
+        while (i < j) {
+            while (i < j && array[j] > middle) {
+                j--;
+            }
+            if (i < j)
+                array[i++] = array[j];
+            while (i < j && array[i] < middle) {
+                i++;
+            }
+            if (i < j) {
+                array[j--] = array[i];
+            }
+        }
+        array[i] = middle;
+        quickSort(array, left, i - 1);
+        quickSort(array, i + 1, right);
+    }
 }
